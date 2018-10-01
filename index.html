@@ -1,43 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>JavaScript</title>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.8/processing.min.js"></script>
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <script>
-    var canvas = document.getElementById("canvas");
-    var processing = new Processing(canvas, function(processing) {
-        processing.size(400, 400);
-        processing.background(0xFFF);
-
-        var mouseIsPressed = false;
-        processing.mousePressed = function () { mouseIsPressed = true; };
-        processing.mouseReleased = function () { mouseIsPressed = false; };
-
-        var keyIsPressed = false;
-        processing.keyPressed = function () { keyIsPressed = true; };
-        processing.keyReleased = function () { keyIsPressed = false; };
-
-        var sine = function(deg){
-        return sin(deg/(180/3.1415926535));
-        }
-        var cosine = function(deg){
-            return cos(deg/(180/3.1415926535));
-        }
-        var rotate2 = function(deg){
-            rotate(deg/(180/3.1415926535));
-        }
-        function getImage(s) {
-            var url = "https://www.kasandbox.org/stylesheets/scratchpads-exec-package/images/" + s + ".png";
-            processing.externals.sketch.imageCache.add(url);
-            return processing.loadImage(url);
-        }
-
-        with (processing) {
-            // INSERT YOUR KHAN ACADEMY PROGRAM HERE
-
+<html> 
+  <head>
+    <title>Processing.JS inside Webpages: Template</title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(400, 400); 
+      frameRate(30);
+        
+      // Paste code from Khan Academy here:
 var score = 0;
 var state = "start";
 var startTime;
@@ -60,10 +40,10 @@ fill(26, 20, 26);
 
   state = "start";
 var draw = function() {
-
-
-
-
+    
+    
+    
+  
     if (state === "start") {
         state = "start";
         //START MENU
@@ -88,8 +68,8 @@ var draw = function() {
             state = "play";
         }
     }
-
-
+    
+    
     else if (state === "store") {
         //store
         background(242, 255, 0);
@@ -101,12 +81,12 @@ var draw = function() {
          if (mouseIsPressed && mouseY > 16 && mouseY < 16+44 && mouseX > 35 && mouseX < 35+75) {
             state = "start";
         }
-
+        
         fill(0,0,0);
         textSize(25);
         text("Points: "+points,190, 47);
-
-
+        
+        
         //extra time
         fill(0,0,0);
         textSize(25);
@@ -130,8 +110,8 @@ var draw = function() {
             extratime = 1;
             points = points-300;
         }
-
-
+        
+        
         //Double points
         fill(0,0,0);
         textSize(20);
@@ -152,9 +132,9 @@ var draw = function() {
             points = points-500;
             doublepoints = true;
         }
-
-
-
+        
+        
+        
         //Stall time
         fill(0,0,0);
         textSize(20);
@@ -165,22 +145,22 @@ var draw = function() {
         rect(340, 107+100, 50, 37);
         fill(0,0,0);
         textSize(20);
-
+        
         if (stalltime){
             text("----", 343, 133+100);
         }else{
             text("$500", 343, 133+100);
         }
-
+        
     if (mouseIsPressed && mouseY > 107+100 && mouseY < 107+37+100 && mouseX > 340 && mouseX < 340+50 && points>=500) {
             //stall time is bought
             stalltime = true;
             points = points-500;
         }
-
-
-
-        //Get 50 Extra Points
+        
+        
+        
+        //Get 50 Extra Points 
         fill(0,0,0);
         textSize(20);
         text("Plus 50", 35, 133+150);
@@ -194,10 +174,10 @@ var draw = function() {
         if (mouseIsPressed && mouseY > 107+150 && mouseY < 107+150+37 && mouseX > 340 && mouseX < 340+50 && points>=500) {
             //Get 50 Extra Points is bought
             points = points-500;
-
+            
         }
-
-
+        
+        
         //Win the Game
         fill(0,0,0);
         textSize(20);
@@ -214,10 +194,10 @@ var draw = function() {
             state = "You_won";
             points = points-1000000;
         }
-
+        
     }
-
-
+    
+    
     else if (state === "You_won"){
         background(237, 21, 237);
         fill(18, 210, 235);
@@ -225,10 +205,10 @@ var draw = function() {
         text("YOU WON!",5,250);
 
     }
-
+    
     else if (state === "play") {
         //PLAYING
-
+        
         mouseClicked = function() {
             if(currentTime > 0){
                 //image(getImage("space/plus"), -85, -145, 600, 600);
@@ -245,7 +225,7 @@ var draw = function() {
         text("Score:", 34, 29);
         text(score, 122, 29);
         text("Time:", 300, 29);
-
+        
         if (extratime === 1){
             currentTime = (time+10)-((millis() - startTime) / 1000);
         }else if(stalltime){
@@ -260,21 +240,21 @@ var draw = function() {
             if (score > highscore) {
                 highscore = score;
             }
-
+            
         }
-
+        
     }
 
-
-
-
-
-
+    
+    
+    
+    
+    
     else if (state === "after") {
         //GAME IS OVER
-
+       
         background(255, 0, 0);
-
+        
         fill(13, 13, 13);
         textSize(62);
         text("GAME OVER", 15, 105);
@@ -285,22 +265,22 @@ var draw = function() {
         fill(0, 0, 0);
         textSize(25);
         text("CONTINUE", 130, 245);
-
+        
         fill(217, 141, 217);
         textSize(25);
         text("Your Score Is: " + score, 100, 170);
-
+        
         if (mouseIsPressed && mouseY > 200 && mouseY < 274 && mouseX > 110 && mouseX < 283) {
             startTime = millis();
             score = 0;
             state = "start";
-
+            
         }
 
 
 
 
-
+    
     }
 
 };
@@ -310,13 +290,11 @@ textSize(18);
 var start = function() {};
 
 
-        }
+    }};
 
-
-
-
-        if (typeof draw !== 'undefined') processing.draw = draw;
-    });
-  </script>
-</body>
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
 </html>
