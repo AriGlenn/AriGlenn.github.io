@@ -15,11 +15,11 @@
             align-items: center;
             background-color: black;
             font-family: 'Inter', sans-serif;
+            padding: 1rem;
         }
 
         .text-container {
             color: white;
-            font-size: 2.5rem;
             font-weight: 300;
             letter-spacing: 0.1em;
             white-space: nowrap;
@@ -28,6 +28,16 @@
             animation: typing 3.5s steps(40, end),
                 blink .75s step-end infinite;
             max-width: fit-content;
+            /* Responsive font size */
+            font-size: clamp(1rem, 5vw, 2.5rem);
+        }
+
+        @media (max-width: 768px) {
+            .text-container {
+                /* Adjust animation for mobile */
+                animation: typing 2.5s steps(30, end),
+                    blink .75s step-end infinite;
+            }
         }
 
         @keyframes typing {
